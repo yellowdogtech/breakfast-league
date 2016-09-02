@@ -1,5 +1,5 @@
 import { Component, Input, OnInit }     from '@angular/core';
-import { ActivatedRoute, Params }       from '@angular/router';    
+import { ActivatedRoute, Params }       from '@angular/router';
 import { Hero }                         from './hero';
 
 import { HeroService }                  from './hero.service';
@@ -8,17 +8,17 @@ import { HeroService }                  from './hero.service';
     selector: 'my-hero-detail',
     templateUrl: 'app/hero-detail.component.html',
     styleUrls:  ['app/hero-detail.component.css'],
-    providers: [ HeroService ]    
+    providers: [ HeroService ]
 })
 
 export class HeroDetailComponent implements OnInit {
     constructor(
         private heroService: HeroService,
-        private route: ActivatedRoute) {            
+        private route: ActivatedRoute) {
         }
 
     @Input() hero: Hero;
-    
+
     ngOnInit(): void {
         this.route.params.forEach((params: Params) => {
             let id = +params['id'];
@@ -33,9 +33,6 @@ export class HeroDetailComponent implements OnInit {
 
     save() : void {
         this.heroService.update(this.hero)
-            .then(this.goBack());
+            .then(() => this.goBack());
     }
-    
-
-
 }

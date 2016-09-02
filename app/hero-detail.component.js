@@ -29,8 +29,9 @@ var HeroDetailComponent = (function () {
         window.history.back();
     };
     HeroDetailComponent.prototype.save = function () {
+        var _this = this;
         this.heroService.update(this.hero)
-            .then(this.goBack());
+            .then(function () { return _this.goBack(); });
     };
     __decorate([
         core_1.Input(), 
