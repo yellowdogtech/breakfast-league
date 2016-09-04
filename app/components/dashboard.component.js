@@ -22,6 +22,33 @@ var DashboardComponent = (function () {
         this.ownerService.getOwners()
             .then(function (owners) { return _this.owners = owners; });
     };
+    DashboardComponent.prototype.getVegasSummary = function (id) {
+        var roster = this.owners.filter(function (owner) { return owner.id === id; });
+        var total = 0;
+        for (var _i = 0, _a = roster[0].teams; _i < _a.length; _i++) {
+            var team = _a[_i];
+            total += team.vegas;
+        }
+        return total;
+    };
+    DashboardComponent.prototype.getPointSummary = function (id) {
+        var roster = this.owners.filter(function (owner) { return owner.id === id; });
+        var total = 0;
+        for (var _i = 0, _a = roster[0].teams; _i < _a.length; _i++) {
+            var team = _a[_i];
+            total += this.getPoints(team);
+        }
+        return total;
+    };
+    DashboardComponent.prototype.getPoints = function (team) {
+        var total = 0;
+        var wins = team.wins;
+        var playoffs = team.playoff_wins * 3;
+        var conference = team.conference_wins * 7;
+        var superbowl = team.superbowl_wins * 12;
+        total += (wins + playoffs + conference + superbowl);
+        return total;
+    };
     DashboardComponent = __decorate([
         core_1.Component({
             selector: 'dashboard',

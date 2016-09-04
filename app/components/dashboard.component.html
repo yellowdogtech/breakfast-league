@@ -2,7 +2,36 @@
 <div class="container">
     <div class="row">
         <div *ngFor="let owner of owners" class="col-sm-12 col-md-4">
-            <h1>{{owner.name}}</h1>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ owner.name }}</h3>
+                </div>
+                <div class="panel-body">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation"><a>Vegas Wins: <span class="badge">{{ getVegasSummary(owner.id) }}</span></a></li>
+                    <li role="presentation"><a>Total Points: <span class="badge">{{ getPointSummary(owner.id) }}</span></a></li>
+                </ul>
+                </div>
+            </div>
+            <table class="table table-condensed table-hover">
+                <thead>
+                    <tr>
+                        <th>Pick</th>
+                        <th>Team</th>
+                        <th>Vegas</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let team of owner.teams">
+                    <tr>
+                        <td>{{team.pick}}</td>
+                        <td>{{team.name}}</td>
+                        <td>{{team.vegas}}</td>
+                        <td>{{getPoints(team)}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
