@@ -2,7 +2,7 @@
 var router_1 = require('@angular/router');
 var heroes_component_1 = require('./heroes.component');
 var dashboard_component_1 = require('./components/dashboard.component');
-var hero_detail_component_1 = require('./hero-detail.component');
+var owner_component_1 = require('./components/owner/owner.component');
 var appRoutes = [
     {
         path: 'heroes',
@@ -13,8 +13,8 @@ var appRoutes = [
         component: dashboard_component_1.DashboardComponent
     },
     {
-        path: 'detail/:id',
-        component: hero_detail_component_1.HeroDetailComponent
+        path: 'owner/:id',
+        component: owner_component_1.OwnerComponent
     },
     {
         path: '',

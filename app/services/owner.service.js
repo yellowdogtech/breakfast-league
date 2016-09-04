@@ -23,6 +23,10 @@ var OwnerService = (function () {
             .then(function (response) { return response.json().owners; })
             .catch(this.handleError);
     };
+    OwnerService.prototype.getOwner = function (id) {
+        return this.getOwners()
+            .then(function (owner) { return owner.find(function (owner) { return owner.id === id; }); });
+    };
     OwnerService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);

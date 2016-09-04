@@ -1,0 +1,44 @@
+<div *ngIf="owner">
+<h3>{{owner.name}}</h3>
+<a href="/dashboard"><< back to dashboard</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Pick</th>
+            <th>Team</th>
+            <th>Vegas Projection</th>
+            <th>Win Points</th>
+            <th>Playoff Wins (x3)</th>
+            <th>Conference Wins (x7)</th>
+            <th>Superbowl Wins (x12)</th>
+            <th>Total Points</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let team of owner.teams">
+        <tr>
+            <td>{{team.pick}}</td>
+            <td><a href="/team/{{team.id}}">{{team.name}}</a></td>
+            <td>{{team.vegas}}</td>
+            <td>{{team.wins }}</td>
+            <td>{{team.playoff_wins}} </td>
+            <td>{{team.conference_wins}}</td>
+            <td>{{team.superbowl_wins}} </td>
+            <td>{{  team.wins + (team.playoff_wins * 3) + ( team.conference_wins * 7) + ( team.superbowl_wins * 12) }}</td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td></td>
+            <td></td>
+            <td><strong>{{ getVegasTotal() }}</strong></td>
+            <td><strong>{{ getWinTotal() }}</strong></td>
+            <td><strong>{{ getPlayoffTotal() }}</strong></td>
+            <td><strong>{{ getConferenceTotal() }}</strong></td>
+            <td><strong>{{ getSuperbowlTotal() }}</strong></td>
+            <td><strong>{{ getScoringTotal() }}</strong></td>
+        </tr>
+    </tfoot>
+</table>
+
+</div>

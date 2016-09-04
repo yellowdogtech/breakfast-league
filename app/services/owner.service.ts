@@ -20,14 +20,13 @@ export class OwnerService {
                 .catch(this.handleError);
   }
 
+  getOwner(id: number): Promise<Owner> {
+    return this.getOwners()
+      .then(owner => owner.find(owner => owner.id === id));
+  }
+
   handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
-
-//   getHero(id: number): Promise<Hero> {
-//       return this.getHeroes()
-//         .then(heroes => heroes.find(hero => hero.id === id));
-//   }
-
 }
