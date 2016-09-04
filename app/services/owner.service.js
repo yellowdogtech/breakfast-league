@@ -10,20 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var http_1 = require('@angular/http');
-var HeroSearchService = (function () {
-    function HeroSearchService(http) {
+require('rxjs/add/operator/toPromise');
+var OwnerService = (function () {
+    function OwnerService(http) {
         this.http = http;
+        this.dataUrl = 'app/data/data';
+        this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
     }
-    HeroSearchService.prototype.search = function (term) {
-        return this.http
-            .get("app/heroes/?name=" + term)
-            .map(function (r) { return r.json().data; });
+    OwnerService.prototype.getOwners = function () {
+        return this.http.get('/app/services/owners.json')
+            .toPromise()
+            .then(function (response) { return response.json().owners; })
+            .catch(this.handleError);
     };
-    HeroSearchService = __decorate([
+    OwnerService.prototype.handleError = function (error) {
+        console.error('An error occurred', error);
+        return Promise.reject(error.message || error);
+    };
+    OwnerService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
-    ], HeroSearchService);
-    return HeroSearchService;
+    ], OwnerService);
+    return OwnerService;
 }());
-exports.HeroSearchService = HeroSearchService;
-//# sourceMappingURL=hero-search.service.js.map
+exports.OwnerService = OwnerService;
+//# sourceMappingURL=owner.service.js.map
