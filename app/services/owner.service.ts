@@ -1,7 +1,8 @@
 import { Injectable }         from '@angular/core';
 import { Headers, Http }      from '@angular/http';
 
-import { Owner }               from '../models/owner';
+import { Owner }              from '../models/owner';
+import { Team }               from '../models/team';
 
 import 'rxjs/add/operator/toPromise'
 
@@ -25,8 +26,34 @@ export class OwnerService {
       .then(owner => owner.find(owner => owner.id === id));
   }
 
+  getTeam(id: number): Promise<Team> {
+    return this.getOwners()
+      .then(function(response) {
+        for(let owner of response) {
+          for(let team of owner.teams) {
+            if(team.id === id) {
+              return team;
+            }
+          }
+        }
+      })
+  }
+
+
+
   handleError(error: any): Promise<any> {
     console.error('An error occurred', error);
     return Promise.reject(error.message || error);
+  }
+
+  findTeam(id:number, response: Owner[]): Team {
+    response.forEach(owner => {
+      let team = owner.teams.find(t => t.id === id);
+        if(team)
+          return team;
+    });
+
+    return null;
+
   }
 }

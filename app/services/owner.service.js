@@ -27,9 +27,31 @@ var OwnerService = (function () {
         return this.getOwners()
             .then(function (owner) { return owner.find(function (owner) { return owner.id === id; }); });
     };
+    OwnerService.prototype.getTeam = function (id) {
+        return this.getOwners()
+            .then(function (response) {
+            for (var _i = 0, response_1 = response; _i < response_1.length; _i++) {
+                var owner = response_1[_i];
+                for (var _a = 0, _b = owner.teams; _a < _b.length; _a++) {
+                    var team = _b[_a];
+                    if (team.id === id) {
+                        return team;
+                    }
+                }
+            }
+        });
+    };
     OwnerService.prototype.handleError = function (error) {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
+    };
+    OwnerService.prototype.findTeam = function (id, response) {
+        response.forEach(function (owner) {
+            var team = owner.teams.find(function (t) { return t.id === id; });
+            if (team)
+                return team;
+        });
+        return null;
     };
     OwnerService = __decorate([
         core_1.Injectable(), 
